@@ -1,0 +1,68 @@
+﻿@model IEnumerable<AspNetCoreDapper.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Veículos</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar novo veículo", "Create")
+</p>
+
+@Html.Partial("CurrentFleet", ViewBag.ListFleets as SelectList)
+
+@Html.Partial("Filter")
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Chassi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberPassengers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderBy(x => x.Chassi)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chassi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberPassengers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>        
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Consultar", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Deletar", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    @if(Model == null || !Model.Any()){
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <h5 style="color: red; margin-top: 15px">Nenhum registro encontrado</h5>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    }
+
+</table>

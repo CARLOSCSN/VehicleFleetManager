@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+
+<div class="row" style="margin-bottom: 10px">
+    <div class="form-group">
+        <div class="col-md-1">           
+        </div>        
+        @Html.Label(null, "Pesquisar por Chassi", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+        <div class="col-md-3">
+            @Html.Editor("ChassiFilter", new { htmlAttributes = new { @class = "form-control" } })                
+        </div>
+        <input type="submit" name="Pesquisar" value="Pesquisar" class="btn btn-info" />
+    </div>  
+</div>
+
+<script>
+
+    function findBychassi(){
+        let ChassiFilterVal = $('[name="ChassiFilter"]').val();  
+        
+        $.ajax({
+            url: "Vehicle/Index",
+            type: "POST",
+            data: {chassiFilter : ChassiFilterVal},
+            dataType:"html",
+            success: function(data) {
+                //console.log(data);
+                $('.body-content').empty();
+                $('.body-content').append(data);                  
+            },
+            error: function(data) {
+                console.log(data);
+            },
+            complete: function(data) {
+                //console.log(data);
+            }                  
+        }); 
+    }
+
+    $(document).ready(function() {
+
+        $('[name="Pesquisar"]').click(function () {
+            findBychassi();
+        });        
+
+    });    
+</script> 

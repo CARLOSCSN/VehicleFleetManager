@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model SelectList
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-8">           
+        </div>        
+        @Html.Label(null, "Frota Atual", htmlAttributes: new { @class = "control-label col-md-2 text-right" })
+        <div class="col-md-2">
+            @Html.DropDownList("CurrentFleet", Model.OrderBy(x => x.Text), new { htmlAttributes = new { @class = "form-control" } })                
+        </div>
+    </div>  
+</div>
+
+<script>
+
+    function setCurrentFleet(){
+        let currentFleet = $('[name="CurrentFleet"]').val();  
+
+        if(currentFleet != null && currentFleet != ''){
+            
+            $.ajax({
+                url: "Fleet/Current",
+                type: "POST",
+                data: {code : currentFleet},
+                success: function(data) {
+                    //console.log(data);
+
+                    setTimeout(function(){ 
+                        location.reload();
+                    }, 200);                    
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+                complete: function(data) {
+                   //console.log(data);
+                }                  
+            });
+
+        }  
+    }
+
+    $(document).ready(function() {
+
+        $('[name="CurrentFleet"]').change(function () {
+            setCurrentFleet();
+        });        
+
+    });    
+</script> 

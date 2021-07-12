@@ -1,0 +1,87 @@
+﻿@model AspNetCoreDapper.Models.Vehicle
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editar</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Veículo</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Chassi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Chassi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Chassi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Type",ViewBag.ListVehicleTypes as SelectList, new { htmlAttributes = new { @class = "form-control" } })                
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.Partial("CurrentFleetVehicle", ViewBag.ListFleets as SelectList)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberPassengers, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberPassengers, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.NumberPassengers, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+<script>
+
+    function setValueNumberPassengers(){
+        let typeVehicle = $('[name="Type"]').val();
+        if(typeVehicle != '' && typeVehicle == 'bus'){
+            $('[name="NumberPassengers"]').val(42);
+        }
+        if(typeVehicle != '' && typeVehicle == 'truck'){
+            $('[name="NumberPassengers"]').val(2);
+        }        
+    }
+
+    $(document).ready(function() {
+
+        setValueNumberPassengers();
+
+        $('[name="Type"]').change(function () {
+            setValueNumberPassengers();
+        });        
+
+    });    
+</script> 

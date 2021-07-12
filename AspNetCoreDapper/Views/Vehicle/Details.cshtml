@@ -1,0 +1,61 @@
+﻿@model AspNetCoreDapper.Models.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+
+    var listFleets = ViewBag.ListFleets as SelectList;
+    var fleetSelected = listFleets.Where(x => x.Selected).FirstOrDefault();     
+}
+
+<h2>Consultar</h2>
+
+<div>
+    <h4>Veículo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Chassi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chassi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Frota")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => fleetSelected.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberPassengers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberPassengers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>
