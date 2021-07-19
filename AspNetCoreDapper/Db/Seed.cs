@@ -55,7 +55,8 @@ namespace AspNetCoreDapper.Db
                         [Color] NVARCHAR(64) NULL,
                         [IsEnabled] BIT NOT NULL,
                         [CodeFleet] NVARCHAR(128) NOT NULL,
-                        CONSTRAINT fk_Vehicle_VehicleType foreign key (Type) references VehicleType (Code)
+                        CONSTRAINT fk_Vehicle_VehicleType foreign key (Type) references VehicleType (Code),
+                        CONSTRAINT fk_Vehicle_Fleet foreign key (CodeFleet) references Fleet (Code)
                     )                   
                     
                     ");

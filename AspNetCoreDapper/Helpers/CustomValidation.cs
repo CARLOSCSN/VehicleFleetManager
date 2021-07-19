@@ -19,12 +19,15 @@ namespace AspNetCoreDapper.CustomValidation
                 idValue = propertyId.GetValue(validationContext.ObjectInstance, null)?.ToString();
             }
 
-            if(!string.IsNullOrWhiteSpace(value?.ToString()) && (string.IsNullOrWhiteSpace(idValue) || idValue == "0")){
+            if(!string.IsNullOrWhiteSpace(value?.ToString())){
                 var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration));
                 var vehicleRepository = new VehicleRepository(configuration);
-                var exists = vehicleRepository.FindByChassi(value.ToString());
+                var vehicleFound = vehicleRepository.FindByChassi(value.ToString());
 
-                if (exists)
+                if ((string.IsNullOrWhiteSpace(idValue) || idValue == "0") && !string.IsNullOrWhiteSpace(vehicleFound?.Chassi))
+                    return new ValidationResult("Este número do chassi já foi cadastrado.", new[] { validationContext.MemberName });
+
+                if (!string.IsNullOrWhiteSpace(idValue) && idValue != "0" && !string.IsNullOrWhiteSpace(vehicleFound?.Chassi) && vehicleFound?.Id.ToString() != idValue)
                     return new ValidationResult("Este número do chassi já foi cadastrado.", new[] { validationContext.MemberName });
             }
             

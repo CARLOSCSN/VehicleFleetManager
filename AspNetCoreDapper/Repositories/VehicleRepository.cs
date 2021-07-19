@@ -111,7 +111,7 @@ namespace AspNetCoreDapper.Repositories
                 return listVehicles;
             }
         }        
-        public bool FindByChassi(string chassi)
+        public Vehicle FindByChassi(string chassi)
         { 
             using (IDbConnection dbConnection = new SqliteConnection(ConnectionString))
             {
@@ -123,7 +123,7 @@ namespace AspNetCoreDapper.Repositories
 
                 var result = dbConnection.Query<Vehicle>(sQuery, new { Chassi = chassi }).FirstOrDefault();
 
-                return !string.IsNullOrWhiteSpace(result?.Chassi);
+                return result;
             }
         }        
     }
