@@ -12,7 +12,7 @@
     @Html.ActionLink("Cadastrar nova frota", "Create")
 </p>
 
-@Html.PartialAsync("CurrentFleet", listFleets)
+<partial name="CurrentFleet" for="@listFleets" />
 
 <table class="table">
     <tr>

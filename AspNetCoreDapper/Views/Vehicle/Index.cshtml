@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    var selectList = ViewBag.ListFleets as SelectList;
 }
 
 <h2>Lista de Veículos</h2>
@@ -10,9 +11,10 @@
     @Html.ActionLink("Cadastrar novo veículo", "Create")
 </p>
 
-@Html.PartialAsync("CurrentFleet", ViewBag.ListFleets as SelectList)
 
-@Html.PartialAsync("Filter")
+<partial name="CurrentFleet" for="@selectList" />
+<partial name="Filter" />
+
 
 <table class="table">
     <tr>
