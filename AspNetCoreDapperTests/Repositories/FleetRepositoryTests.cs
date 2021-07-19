@@ -19,8 +19,8 @@ namespace AspNetCoreDapperTests.Repositories
         {
             var entity = new Fleet
             {
-                Code = "frota10",
-                Name = "Frota 10",
+                Code = "frota11",
+                Name = "Frota 11",
                 IsEnabled = true,
                 Current = false
             };
