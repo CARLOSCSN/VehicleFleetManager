@@ -10,9 +10,9 @@
     @Html.ActionLink("Cadastrar novo veículo", "Create")
 </p>
 
-@Html.Partial("CurrentFleet", ViewBag.ListFleets as SelectList)
+@Html.PartialAsync("CurrentFleet", ViewBag.ListFleets as SelectList)
 
-@Html.Partial("Filter")
+@Html.PartialAsync("Filter")
 
 <table class="table">
     <tr>
